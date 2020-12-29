@@ -5,18 +5,17 @@ import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
-GPIO.setup(3, GPIO.OUT)
-GPIO.setup(5, GPIO.OUT)
-GPIO.setup(7, GPIO.OUT)
-GPIO.setup(8, GPIO.OUT)
 
+board_pins = [3,5,7,8]
+GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
 
 on = False
 off = True
 
 def commandLineTest():
     while True:
-        ans_question = input('Relay # : ')
+        ans_question = input('Relay # :')
+        print('1:', GPIO.input(3), '2:', GPIO.input(4))
         if( ans_question == '1' ):
             if( GPIO.input(3) == 1 ):
                 GPIO.output(3, off)
