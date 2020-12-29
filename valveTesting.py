@@ -19,32 +19,32 @@ def commandLineTest():
                 '3:', GPIO.input(board_pins[2]), '4:', GPIO.input(board_pins[3]))
         if( ans_question == '1' ):
             if( GPIO.input(board_pins[0]) == 1 ):
-                GPIO.output(board_pins[0], off)
-                print('relay one OFF')
-            else:
                 GPIO.output(board_pins[0], on)
-                print('relay one ON')        
+                print('relay one ON')
+            else:
+                GPIO.output(board_pins[0], off)
+                print('relay one OFF')        
         elif( ans_question == '2' ):
             if( GPIO.input(board_pins[1]) == 1 ):
-                GPIO.output(board_pins[1], off)
-                print('relay two OFF')
-            else:
                 GPIO.output(board_pins[1], on)
-                print('relay two ON')  
+                print('relay two ON')
+            else:
+                GPIO.output(board_pins[1], off)
+                print('relay two OFF')  
         elif( ans_question == '3' ):
             if( GPIO.input(board_pins[2]) == 1 ):
-                GPIO.output(board_pins[2], off)
-                print('relay three OFF')
-            else:
                 GPIO.output(board_pins[2], on)
-                print('relay three ON') 
+                print('relay three ON')
+            else:
+                GPIO.output(board_pins[2], off)
+                print('relay three OFF') 
         elif( ans_question == '4' ):
             if( GPIO.input(board_pins[3]) == 1 ):
-                GPIO.output(board_pins[3], off)
-                print('relay four OFF')
-            else:
                 GPIO.output(board_pins[3], on)
                 print('relay four ON')
+            else:
+                GPIO.output(board_pins[3], off)
+                print('relay four OFF')
         else:
             print('input not valid')
 
