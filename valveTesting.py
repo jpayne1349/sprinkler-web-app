@@ -19,4 +19,6 @@ def commandLineTest():
         else:
             GPIO.output(37, False)
             print('relay False')
+
+commandLineTest()
         
