@@ -7,17 +7,19 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
 GPIO.setup(37, GPIO.OUT)
 
+on = False
+off = True
 
 def commandLineTest():
     while True:
-        ans_question = input('True or False')
-        if( ans_question == 'True' ):
-            GPIO.output(37, True)
+        ans_question = input('0 or 1 : ')
+        if( ans_question == '1' ):
+            GPIO.output(37, on)
             print('relay True')
         elif( ans_question == 'Exit' ):
             exit()
         else:
-            GPIO.output(37, False)
+            GPIO.output(37, off)
             print('relay False')
 
 commandLineTest()
