@@ -6,11 +6,13 @@ import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
 
-board_pins = [3,5,7,8]
+board_pins = [11,13,15,16]
 GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
 
 on = False
 off = True
+
+print(GPIO.input(board_pins[0]))
 
 def commandLineTest():
     while True:
@@ -49,5 +51,5 @@ def commandLineTest():
 
 
 
-commandLineTest()
+#commandLineTest()
         
