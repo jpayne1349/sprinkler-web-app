@@ -12,44 +12,43 @@ GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
 on = False
 off = True
 
-print(GPIO.input(board_pins[0]))
-
 def commandLineTest():
     while True:
         ans_question = input('Relay # :')
-        print('1:', GPIO.input(3), '2:', GPIO.input(4))
+        print('1:', GPIO.input(board_pins[0]), '2:', GPIO.input(board_pins[1]),
+                '3:', GPIO.input(board_pins[2]), '4:', GPIO.input(board_pins[3]))
         if( ans_question == '1' ):
-            if( GPIO.input(3) == 1 ):
-                GPIO.output(3, off)
+            if( GPIO.input(board_pins[0]) == 1 ):
+                GPIO.output(board_pins[0], off)
                 print('relay one OFF')
             else:
-                GPIO.output(3, on)
+                GPIO.output(board_pins[0], on)
                 print('relay one ON')        
         elif( ans_question == '2' ):
-            if( GPIO.input(5) == 1 ):
-                GPIO.output(5, off)
+            if( GPIO.input(board_pins[1]) == 1 ):
+                GPIO.output(board_pins[1], off)
                 print('relay two OFF')
             else:
-                GPIO.output(5, on)
+                GPIO.output(board_pins[1], on)
                 print('relay two ON')  
         elif( ans_question == '3' ):
-            if( GPIO.input(7) == 1 ):
-                GPIO.output(7, off)
+            if( GPIO.input(board_pins[2]) == 1 ):
+                GPIO.output(board_pins[2], off)
                 print('relay three OFF')
             else:
-                GPIO.output(7, on)
+                GPIO.output(board_pins[2], on)
                 print('relay three ON') 
         elif( ans_question == '4' ):
-            if( GPIO.input(8) == 1 ):
-                GPIO.output(8, off)
+            if( GPIO.input(board_pins[3]) == 1 ):
+                GPIO.output(board_pins[3], off)
                 print('relay four OFF')
             else:
-                GPIO.output(8, on)
+                GPIO.output(board_pins[3], on)
                 print('relay four ON')
         else:
             print('input not valid')
 
 
 
-#commandLineTest()
+commandLineTest()
         
