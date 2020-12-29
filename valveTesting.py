@@ -12,9 +12,15 @@ GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
 on = False
 off = True
 
+def interpret(value):
+    if value == 0:
+        return 'ON'
+    elif value == 1:
+        return 'OFF'
+
 def printStatus():
-    print('ONE:', GPIO.input(board_pins[0]), '  TWO:', GPIO.input(board_pins[1]),
-                '  THREE:', GPIO.input(board_pins[2]), '  FOUR:', GPIO.input(board_pins[3]))
+    print('ONE:', interpret(GPIO.input(board_pins[0])), '  TWO:', interpret(GPIO.input(board_pins[1])),
+                '  THREE:', interpret(GPIO.input(board_pins[2])), '  FOUR:', interpret(GPIO.input(board_pins[3])))
 
 def commandLineTest():
     while True:
