@@ -1,10 +1,16 @@
 # test file to run on the pi while setting up valve control
 
+# TODO: needs to check every so often that the valves are closed!
+
 import RPi.GPIO as GPIO
 import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
+
+#                                   as 0,1,2,3
+# these in the yard are....  left side (porch area) , side yard (single shooter) , middle yard, right side (farthest) 
+
 
 board_pins = [11,15,13,16]
 GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
