@@ -15,6 +15,13 @@ GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
 board_pins = [11,15,13,16]
 GPIO.setup(board_pins, GPIO.OUT, initial=GPIO.HIGH)
 
+# defining them as left , middle, right, and side
+
+left = board_pins[0]
+middle = board_pins[2]
+right = board_pins[3]
+side = board_pins[1]
+
 on = False
 off = True
 
@@ -28,6 +35,8 @@ def printStatus():
     print('ONE:', interpret(GPIO.input(board_pins[0])), '  TWO:', interpret(GPIO.input(board_pins[1])),
                 '  THREE:', interpret(GPIO.input(board_pins[2])), '  FOUR:', interpret(GPIO.input(board_pins[3])))
 
+
+# run for manual control via command line
 def commandLineTest():
     while True:
         ans_question = input('Relay # :')
