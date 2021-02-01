@@ -27,24 +27,39 @@ def run(minutes):
     if type(minutes) != int:
         return print('Input not a number')
     
+    telegram_send.send(messages=[f'Running backyard sprinklers. Input time = {minutes} minutes.'])
     on_time = minutes * 60
-
+     
     # every time, only run side yard for 1 minute at beginning and 1 minute at end...
     GPIO.output(side, on)
+    telegram_send.send(messages=['Sideyard on'])
     time.sleep(60)
     GPIO.output(side, off)
+    telegram_send.send(messages=['Sideyard off'])
 
     GPIO.output(left, on)
+    telegram_send.send(messages=['Porchside on'])
     time.sleep(on_time)
     GPIO.output(left, off)
+    telegram_send.send(messages=['Porchside off'])
 
     GPIO.output(middle, on)
+    telegram_send.send(messages=['Middle on'])
     time.sleep(on_time)
     GPIO.output(middle, off)
+    telegram_send.send(messages=['Middle off'])
 
     GPIO.output(right, on)
+    telegram_send.send(messages=['Farside on'])
     time.sleep(on_time)
     GPIO.output(right, off)
+    telegram_send.send(messages=['Farside off'])
+
+    GPIO.output(side, on)
+    telegram_send.send(messages=['Sideyard on'])
+    time.sleep(60)
+    GPIO.output(side, off)
+    telegram_send.send(messages=['Sideyard off'])
 
     # for now just print their status...
     return printStatus()
@@ -57,8 +72,12 @@ def interpret(value):
         return 'OFF'
 
 def printStatus():
+    telegram_send.send(messages=[f'Left: {interpret(GPIO.input(left))}  Middle: {interpret(GPIO.input(middle))} Right: {interpret(GPIO.input(right))} Side: {interpret(GPIO.input(side))}'])
+    
     print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
                 '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
 
 run(input('How many minutes? '))
+
+# add some telegram_send alerts. 
