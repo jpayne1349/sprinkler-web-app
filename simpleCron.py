@@ -24,8 +24,8 @@ off = True
 
 # task to be run as a cronjob, notifying of start, stop, and status
 def run(minutes):
-    if type(minutes) != int:
-        return print('Input not a number')
+    # if type(minutes) != int:
+    #     return print('Input not a number')
     
     telegram_send.send(messages=[f'Running backyard sprinklers. Input time = {minutes} minutes.'])
     on_time = minutes * 60
@@ -73,7 +73,7 @@ def interpret(value):
 
 def printStatus():
     telegram_send.send(messages=[f'Left: {interpret(GPIO.input(left))}  Middle: {interpret(GPIO.input(middle))} Right: {interpret(GPIO.input(right))} Side: {interpret(GPIO.input(side))}'])
-    
+
     print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
                 '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
