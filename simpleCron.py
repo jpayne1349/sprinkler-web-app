@@ -77,7 +77,13 @@ def printStatus():
     print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
                 '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
+try:
+    run(5)
+except Exception as error:
+    traceback_list = traceback.format_exception(
+        etype=type(error), value=error, tb=error.__traceback__)
+    print()
+    traceback_string = "".join(traceback_list)
+    print(traceback_string)
 
-run(input('How many minutes? '))
-
-# add some telegram_send alerts. 
+    telegram_send.send(messages=['Job failed! Traceback of error: ', traceback_string])
