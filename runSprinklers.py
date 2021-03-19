@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import telegram_send
+import os
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
@@ -79,6 +80,12 @@ def printStatus():
 
 try:
     run(5)
+    if os.path.exists("status.flag"):
+        os.remove("status.flag")
+    else:
+        telegram_send.send(messages=['No status flag found for removal'])
+        raise Exception
+    
 except Exception as error:
     traceback_list = traceback.format_exception(
         etype=type(error), value=error, tb=error.__traceback__)
