@@ -69,17 +69,17 @@ def run(minutes):
 
 def stop():
     telegram_send.send(messages=[f'Sprinkler script stopped via homekit'])
-    time.sleep(1)
+    #time.sleep(1)
     GPIO.output(side, off)
-    time.sleep(1)
+    #time.sleep(1)
     GPIO.output(left, off)
-    time.sleep(1)
+    #time.sleep(1)
     GPIO.output(middle, off)
-    time.sleep(1)
+    #time.sleep(1)
     GPIO.output(right, off)
 
     printStatus()
-    
+
 
 def interpret(value):
     if value == 0:
