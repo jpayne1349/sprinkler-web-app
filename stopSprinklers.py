@@ -99,6 +99,7 @@ try:
     else:
         telegram_send.send(messages=['No status flag found for removal'])
         raise Exception
+    exit()
     
 except Exception as error:
     traceback_list = traceback.format_exception(
