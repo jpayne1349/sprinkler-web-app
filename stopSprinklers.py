@@ -77,8 +77,9 @@ def stop():
     GPIO.output(middle, off)
     time.sleep(1)
     GPIO.output(right, off)
+
+    printStatus()
     
-    return printStatus()
 
 def interpret(value):
     if value == 0:
@@ -89,8 +90,8 @@ def interpret(value):
 def printStatus():
     telegram_send.send(messages=[f'Left: {interpret(GPIO.input(left))}  Middle: {interpret(GPIO.input(middle))} Right: {interpret(GPIO.input(right))} Side: {interpret(GPIO.input(side))}'])
 
-    print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
-                '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
+    #print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
+    #            '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
 try:
     stop()
