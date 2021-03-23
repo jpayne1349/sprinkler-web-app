@@ -3,7 +3,7 @@
 
 # ampersand says to run in subshell async
 
-cd /home/jpayne/Desktop/github/sprinklers
+cd /home/homebridge/sprinklers
 
 python3 runSprinklers.py &
 

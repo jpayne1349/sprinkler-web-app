@@ -3,7 +3,7 @@
 
 # need to kill original script and run a stopping script.
 
-cd /home/jpayne/Desktop/github/sprinklers
+cd /home/homebridge/sprinklers
 
 pkill -f runSprinklers.py
 
