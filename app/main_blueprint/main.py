@@ -9,7 +9,7 @@ main_blueprint = Blueprint('main_blueprint', __name__)
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
-    post_data = request.get_json(force=True)
+    post_data = request.json
 
     print(post_data)
 
