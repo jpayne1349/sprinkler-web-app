@@ -13,7 +13,7 @@ def homepage():
 
     post_data = request.get_json()
 
-    print('STATE = ', post_data('state'))
+    print('STATE = ', post_data['state'])
 
     print(post_data)
 
