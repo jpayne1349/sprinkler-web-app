@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, flash, request
 
 from flask import current_app as app
 
+
+
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
 
@@ -10,6 +12,8 @@ main_blueprint = Blueprint('main_blueprint', __name__)
 def homepage():
 
     post_data = request.get_json()
+
+    print('STATE = ', post_data('state'))
 
     print(post_data)
 
