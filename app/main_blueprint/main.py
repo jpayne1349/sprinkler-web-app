@@ -25,6 +25,6 @@ def homepage():
         print('turning sprinklers off')
         runSprinklers.stop()
     elif state == 'update':
-        print('return status')
-
-    return '0'
+        code = runSprinklers.getStatus()
+        print('return status code = ', code)
+        return code

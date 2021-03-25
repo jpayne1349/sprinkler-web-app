@@ -23,7 +23,6 @@ on = False
 off = True
 
 
-# task to be run as a cronjob, notifying of start, stop, and status
 def run(minutes):
     if type(minutes) != int:
         minutes = int(minutes)
@@ -83,6 +82,17 @@ def interpret(value):
         return 'ON'
     elif value == 1:
         return 'OFF'
+
+def getStatus():
+    l = GPIO.input(left)
+    m = GPIO.input(middle)
+    r = GPIO.input(right)
+    s = GPIO.input(side)
+    if 0 in (l, m, r, s):
+        return 1
+    else:
+        return 0
+    
 
 def printStatus():
     telegram_send.send(messages=[f'Left: {interpret(GPIO.input(left))}  Middle: {interpret(GPIO.input(middle))} Right: {interpret(GPIO.input(right))} Side: {interpret(GPIO.input(side))}'])
