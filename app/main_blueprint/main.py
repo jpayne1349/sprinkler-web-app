@@ -17,11 +17,11 @@ def homepage():
 
     state = post_data['state']
 
-    if state = 'on':
+    if state == 'on':
         print('turning sprinklers on')
-    elif state = 'off':
+    elif state == 'off':
         print('turning sprinklers off')
-    elif state = 'update':
+    elif state == 'update':
         print('return status')
 
     return '0'
