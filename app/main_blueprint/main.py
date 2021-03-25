@@ -28,7 +28,7 @@ def homepage():
         running.terminate()
         runSprinklers.stop()
     elif state == 'update':
-        if running.isActive():
+        if running.is_alive():
             return '1'
         else:
             return '0'
