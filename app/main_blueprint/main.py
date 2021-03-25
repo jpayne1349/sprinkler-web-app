@@ -12,6 +12,8 @@ main_blueprint = Blueprint('main_blueprint', __name__)
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
+    running = Process(target=runSprinklers.run, args=(5,))
+
     post_data = request.get_json()
 
     print('STATE = ', post_data['state'])
@@ -20,7 +22,6 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        running = Process(target=runSprinklers.run, args=(5,))
         running.start()
         return '1'
     elif state == 'off':
