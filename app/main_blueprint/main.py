@@ -5,9 +5,11 @@ from flask import current_app as app
 
 from . import runSprinklers
 
+from multiprocessing import Process
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
+running = Process(target=runSprinklers.run, args=(5,))
 
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
@@ -20,11 +22,13 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        runSprinklers.run(5)
+        running.start()
     elif state == 'off':
         print('turning sprinklers off')
+        running.terminate()
         runSprinklers.stop()
     elif state == 'update':
-        code = runSprinklers.getStatus()
-        print('return status code = ', code)
-        return code
+        if running.isActive():
+            return '1'
+        else:
+            return '0'
