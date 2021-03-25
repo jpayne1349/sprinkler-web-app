@@ -23,10 +23,12 @@ def homepage():
     if state == 'on':
         print('turning sprinklers on')
         running.start()
+        return '1'
     elif state == 'off':
         print('turning sprinklers off')
         running.terminate()
         runSprinklers.stop()
+        return '0'
     elif state == 'update':
         if running.is_alive():
             return '1'
