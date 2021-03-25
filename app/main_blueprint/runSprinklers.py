@@ -89,9 +89,9 @@ def getStatus():
     r = GPIO.input(right)
     s = GPIO.input(side)
     if 0 in (l, m, r, s):
-        return 1
+        return '1'
     else:
-        return 0
+        return '0'
     
 
 def printStatus():
