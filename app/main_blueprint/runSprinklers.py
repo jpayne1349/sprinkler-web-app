@@ -65,6 +65,18 @@ def run(minutes):
     # for now just print their status...
     return printStatus()
 
+def stop():
+    telegram_send.send(messages=[f'Sprinkler script stopped via homekit'])
+    #time.sleep(1)
+    GPIO.output(side, off)
+    #time.sleep(1)
+    GPIO.output(left, off)
+    #time.sleep(1)
+    GPIO.output(middle, off)
+    #time.sleep(1)
+    GPIO.output(right, off)
+
+    printStatus()
 
 def interpret(value):
     if value == 0:
@@ -78,19 +90,15 @@ def printStatus():
     print('Left:', interpret(GPIO.input(left)), '  Middle:', interpret(GPIO.input(middle)),
                 '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
-try:
-    run(5)
-    if os.path.exists("status.flag"):
-        os.remove("status.flag")
-    else:
-        telegram_send.send(messages=['No status flag found for removal'])
-        raise Exception
-    
-except Exception as error:
-    traceback_list = traceback.format_exception(
-        etype=type(error), value=error, tb=error.__traceback__)
-    print()
-    traceback_string = "".join(traceback_list)
-    print(traceback_string)
+# try:
+#     run(5)
 
-    telegram_send.send(messages=['Job failed! Traceback of error: ', traceback_string])
+    
+# except Exception as error:
+#     traceback_list = traceback.format_exception(
+#         etype=type(error), value=error, tb=error.__traceback__)
+#     print()
+#     traceback_string = "".join(traceback_list)
+#     print(traceback_string)
+
+#     telegram_send.send(messages=['Job failed! Traceback of error: ', traceback_string])
