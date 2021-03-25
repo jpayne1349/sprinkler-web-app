@@ -15,6 +15,13 @@ def homepage():
 
     print('STATE = ', post_data['state'])
 
-    print(post_data)
+    state = post_data['state']
 
-    return render_template('homepage.html')
+    if state = 'on':
+        print('turning sprinklers on')
+    elif state = 'off':
+        print('turning sprinklers off')
+    elif state = 'update':
+        print('return status')
+
+    return '0'
