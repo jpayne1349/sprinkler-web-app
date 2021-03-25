@@ -9,8 +9,6 @@ from multiprocessing import Process
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
-running = Process(target=runSprinklers.run, args=(5,))
-
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
@@ -22,6 +20,7 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
+        running = Process(target=runSprinklers.run, args=(5,))
         running.start()
         return '1'
     elif state == 'off':
@@ -31,6 +30,8 @@ def homepage():
         return '0'
     elif state == 'update':
         if running.is_alive():
+            print(' status = 1')
             return '1'
         else:
+            print(' status = 0')
             return '0'
