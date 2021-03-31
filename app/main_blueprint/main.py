@@ -33,13 +33,15 @@ def homepage():
         return '0'
 
     elif state == 'update':
-        worker = current_app.worker
-        state = worker.state
-        queues = worker.queues
-        print(worker)
-        print('worker state', state)
-        print('worker queues', queues)
-        print('task_queue ?', current_app.task_queue)
+        
+        workers = rq.worker.Worker.all(connection=current_app.redis)
+        if not workers:
+            print('no worker found')
+            return '0'
+        else:
+            state = workers[0].state
+            print('worker state = ', state)
+            
         if state == 'started':
             return '1'
         else:
