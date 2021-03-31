@@ -18,7 +18,7 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 1, job_timeout=600, job_id='sprinkler_job')
+        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.run, 1, job_timeout=600, job_id='sprinkler_job')
         print('job id = ', sprinkler_job.get_id())
         print('job status = ', sprinkler_job.get_status())
         return '1'
@@ -32,7 +32,7 @@ def homepage():
             rq.command.send_stop_job_command(current_app.redis, 'sprinkler_job')
             # actually need to then queue the stop function to close valves?
             closing_valves = current_app.task_queue.enqueue(runSprinklers.stop, job_id='stopping_job')
-            
+
         return '0'
 
     elif state == 'update':
