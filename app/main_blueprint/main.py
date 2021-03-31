@@ -31,6 +31,7 @@ def homepage():
         if status == 'started':
             rq.command.send_stop_job_command(current_app.redis, 'sprinkler_job')
             # actually need to then queue the stop function to close valves?
+            closing_valves = current_app.task_queue.enqueue(runSprinklers.stop, job_id='stopping_job')
             
         return '0'
 
