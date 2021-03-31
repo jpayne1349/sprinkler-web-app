@@ -26,7 +26,8 @@ def homepage():
         if any_running is not None:
             return 1
         
-        asyncio.run(task_loop(async_running.run_sprinklers()))
+        water_grass = asyncio.create_task(async_running.run_sprinklers(5))
+        await water_grass
         # start up the asynchronous function
         # return 1 to on 
         return 1
@@ -47,7 +48,6 @@ def homepage():
             return 0
 
 
-async def task_loop(function):
-    water_grass = asyncio.create_task(function(5))
-
-    await water_grass
+async def task_loop():
+    # START THE LOOP?
+    pass
