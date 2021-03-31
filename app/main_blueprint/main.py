@@ -20,13 +20,13 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, args=(1,), job_timeout=600, job_id='sprinkler_job')
+        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 1)
         print('job id = ', sprinkler_job.get_id())
         return '1'
 
     elif state == 'off':
         print('turning sprinklers off')
-        job = rq.job.fetch('sprinkler_job', connection=current_app.redis)
+        job = rq.job.Job.fetch('sprinkler_job', connection=current_app.redis)
         status = job.get_status()
         print(status)
         if status == 'started':
