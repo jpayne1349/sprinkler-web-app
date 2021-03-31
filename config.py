@@ -11,7 +11,7 @@ class Config(object):
     TESTING = False
     SECRET_KEY = "B\xb2?.\xdf\x9f\xa7m\xf8\x8a%,\xf7\xc4\xfa\x91"
 
-
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
     SESSION_COOKIE_SECURE = True
 
 class ProductionConfig(Config):

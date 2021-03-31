@@ -3,9 +3,7 @@ from flask import Blueprint, render_template, flash, request
 
 from flask import current_app as app
 
-from . import async_running
-
-import asyncio
+import rq
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
@@ -22,27 +20,26 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        # create the task and start it? and await it's finishing..
-        # check for already running?
-        task_loop.run_until_complete(async_running.run_sprinklers(5))
-        #task_loop.create_task(async_running.run_sprinklers(5))
-        # start up the asynchronous function
-        # return 1 to on 
+        sprinkler_job = current_app.task_queue.enqueue('app.main_blueprint.runSprinklers.fake_run', 1, job_timeout=600, job_id='sprinkler_job')
+        print('job id = ', sprinkler_job.job_id)
         return '1'
 
     elif state == 'off':
         print('turning sprinklers off')
-        a_task = asyncio.current_task()
-        if a_task is not None:
-            a_task.cancel()
+        job = rq.job.fetch('sprinkler_job', connection=current_app.redis)
+        status = job.get_status()
+        print(status)
+        if status == 'started':
+            rq.command.send_stop_job_command(current_app.redis, job.job_id)
         return '0'
 
     elif state == 'update':
         # check if a loop is running?
-        try:
-            running = asyncio.get_running_loop()
+        workers = rq.Worker.all(connection=current_app.redis)
+        worker = workers[0]
+        if worker.state == 'started':
             return '1'
-        except:
-            running = False
+        else:
             return '0'
 
+       

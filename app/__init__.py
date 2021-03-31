@@ -3,6 +3,8 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from redis import Redis
+import rq
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -18,6 +20,9 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
+    app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
 
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
