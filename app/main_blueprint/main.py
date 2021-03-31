@@ -23,7 +23,7 @@ def homepage():
         # create the task and start it? and await it's finishing..
         # check for already running?
         any_running = asyncio.current_task()
-        if any_running not None:
+        if any_running is not None:
             return 1
         water_grass = asyncio.create_task(async_running.run_sprinklers(5))
         await water_grass
@@ -33,14 +33,14 @@ def homepage():
     elif state == 'off':
         print('turning sprinklers off')
         a_task = asyncio.current_task()
-        if a_task not None:
+        if a_task is not None:
             a_task.cancel()
 
         return 0
     elif state == 'update':
         # check if a loop is running?
         running_task = asyncio.current_task()
-        if running_task not None:
+        if running_task is not None:
             return 1
         else:
             return 0
