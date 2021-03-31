@@ -16,7 +16,7 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        sprinkler_job = current_app.task_queue.enqueue('app.main_blueprint.runSprinklers.fake_run', args=1, job_timeout=600, job_id='sprinkler_job')
+        sprinkler_job = current_app.task_queue.enqueue('app.main_blueprint.runSprinklers.fake_run', args=(1,), job_timeout=600, job_id='sprinkler_job')
         print('job id = ', sprinkler_job.get_id())
         return '1'
 
