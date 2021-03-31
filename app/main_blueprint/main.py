@@ -3,16 +3,14 @@ from flask import Blueprint, render_template, flash, request
 
 from flask import current_app as app
 
-from . import runSprinklers
+from . import async_running
 
-from multiprocessing import Process
+import asyncio
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
-
-    running = Process(target=runSprinklers.run, args=(5,))
 
     post_data = request.get_json()
 
@@ -22,17 +20,28 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        running.start()
-        return '1'
+        # create the task and start it? and await it's finishing..
+        # check for already running?
+        any_running = asyncio.current_task()
+        if any_running not None:
+            return 1
+        water_grass = asyncio.create_task(async_running.run_sprinklers(5))
+        await water_grass
+        # start up the asynchronous function
+        # return 1 to on 
+        return 1
     elif state == 'off':
         print('turning sprinklers off')
-        running.terminate()
-        runSprinklers.stop()
-        return '0'
+        a_task = asyncio.current_task()
+        if a_task not None:
+            a_task.cancel()
+
+        return 0
     elif state == 'update':
-        if running.is_alive():
-            print(' status = 1')
-            return '1'
+        # check if a loop is running?
+        running_task = asyncio.current_task()
+        if running_task not None:
+            return 1
         else:
-            print(' status = 0')
-            return '0'
+            return 0
+
