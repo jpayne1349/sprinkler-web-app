@@ -1,7 +1,5 @@
 
-from flask import Blueprint, render_template, flash, request
-
-from flask import current_app as app
+from flask import Blueprint, render_template, flash, request, current_app
 
 import rq
 

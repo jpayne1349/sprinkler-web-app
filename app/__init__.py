@@ -1,5 +1,5 @@
 
-from flask import Flask
+from flask import Flask, current_app
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -21,9 +21,6 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    app.redis = Redis.from_url(app.config['REDIS_URL'])
-    app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
-
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
     #login_manager.login_view = 'authorization_bp.login_page' # USE FOR LOGIN PAGE IF NEEDED
@@ -35,6 +32,9 @@ def create_app():
         app.register_blueprint(main.main_blueprint)  # registering the blueprint inside that file
 
         #from . import models  # USED WHEN DB IS NEEDED
+
+        app.redis = Redis.from_url(app.config['REDIS_URL'])
+        app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
 
         return app
 
