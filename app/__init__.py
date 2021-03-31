@@ -23,7 +23,9 @@ def create_app():
 
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
+    app.worker = rq.Worker(app.task_queue, connection=app.redis, name='sprinkler_worker')
     print(app.task_queue)
+    print(app.worker)
     
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
