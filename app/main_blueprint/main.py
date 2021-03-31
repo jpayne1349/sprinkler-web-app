@@ -39,8 +39,10 @@ def homepage():
         return 0
     elif state == 'update':
         # check if a loop is running?
-        running_task = asyncio.current_task()
-        if running_task is not None:
+        try:
+            running = asyncio.get_running_loop()
             return 1
-        else:
+        except:
+            running = False
             return 0
+
