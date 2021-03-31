@@ -26,10 +26,11 @@ def homepage():
         if any_running is not None:
             return 1
         
-        asyncio.run(task_loop(async_running.run_sprinklers())
+        asyncio.run(task_loop(async_running.run_sprinklers()))
         # start up the asynchronous function
         # return 1 to on 
         return 1
+
     elif state == 'off':
         print('turning sprinklers off')
         a_task = asyncio.current_task()
