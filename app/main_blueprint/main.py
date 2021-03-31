@@ -33,7 +33,9 @@ def homepage():
 
         workers = rq.Worker.all(connection=current_app.redis)
         print(workers)
-        
+        if not workers:
+            # no workers have been queued up?
+            return '0'
         worker = workers[0]
         if worker.state == 'started':
             return '1'
