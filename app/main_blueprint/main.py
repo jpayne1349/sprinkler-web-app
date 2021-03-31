@@ -16,6 +16,8 @@ def homepage():
 
     state = post_data['state']
 
+    print('task_queue ?', current_app.task_queue)
+
     if state == 'on':
         print('turning sprinklers on')
         sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, args=(1,), job_timeout=600, job_id='sprinkler_job')
