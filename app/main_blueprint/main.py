@@ -28,21 +28,21 @@ def homepage():
         #task_loop.create_task(async_running.run_sprinklers(5))
         # start up the asynchronous function
         # return 1 to on 
-        return 1
+        return '1'
 
     elif state == 'off':
         print('turning sprinklers off')
         a_task = asyncio.current_task()
         if a_task is not None:
             a_task.cancel()
+        return '0'
 
-        return 0
     elif state == 'update':
         # check if a loop is running?
         try:
             running = asyncio.get_running_loop()
-            return 1
+            return '1'
         except:
             running = False
-            return 0
+            return '0'
 
