@@ -37,8 +37,10 @@ def homepage():
     elif state == 'update':
         worker = current_app.worker
         state = worker.state
+        queues = worker.queues
         print(worker)
         print('worker state', state)
+        print('worker queues', queues)
         if state == 'started':
             return '1'
         else:
