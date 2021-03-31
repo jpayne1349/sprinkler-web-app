@@ -22,6 +22,7 @@ def homepage():
         print('turning sprinklers on')
         sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 1)
         print('job id = ', sprinkler_job.get_id())
+        print('job status = ', sprinkler_job.get_status())
         return '1'
 
     elif state == 'off':
