@@ -18,7 +18,7 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 1)
+        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 1, job_timeout=600, job_id='sprinkler_job')
         print('job id = ', sprinkler_job.get_id())
         print('job status = ', sprinkler_job.get_status())
         return '1'
@@ -27,9 +27,11 @@ def homepage():
         print('turning sprinklers off')
         job = rq.job.Job.fetch('sprinkler_job', connection=current_app.redis)
         status = job.get_status()
-        print(status)
+        print('running job status =', status)
         if status == 'started':
             rq.command.send_stop_job_command(current_app.redis, 'sprinkler_job')
+            # actually need to then queue the stop function to close valves?
+            
         return '0'
 
     elif state == 'update':
@@ -41,8 +43,8 @@ def homepage():
         else:
             state = workers[0].state
             print('worker state = ', state)
-            
-        if state == 'started':
+
+        if state == 'busy':
             return '1'
         else:
             return '0'
