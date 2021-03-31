@@ -51,3 +51,5 @@ def homepage():
 async def task_loop():
     # START THE LOOP?
     pass
+
+asyncio.run(task_loop())
