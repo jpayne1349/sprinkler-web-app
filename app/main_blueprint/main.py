@@ -47,7 +47,7 @@ def homepage():
             return 0
 
 
-def task_loop(function):
+async def task_loop(function):
     water_grass = asyncio.create_task(function(5))
 
     await water_grass
