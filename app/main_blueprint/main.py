@@ -7,8 +7,6 @@ import rq
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
-task_loop = asyncio.new_event_loop()
-
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
