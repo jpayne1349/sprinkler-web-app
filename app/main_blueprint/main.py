@@ -17,7 +17,7 @@ def homepage():
     if state == 'on':
         print('turning sprinklers on')
         sprinkler_job = current_app.task_queue.enqueue('app.main_blueprint.runSprinklers.fake_run', 1, job_timeout=600, job_id='sprinkler_job')
-        print('job id = ', sprinkler_job.job_id)
+        print('job id = ', sprinkler_job.get_id())
         return '1'
 
     elif state == 'off':
@@ -26,7 +26,7 @@ def homepage():
         status = job.get_status()
         print(status)
         if status == 'started':
-            rq.command.send_stop_job_command(current_app.redis, job.job_id)
+            rq.command.send_stop_job_command(current_app.redis, 'sprinkler_job')
         return '0'
 
     elif state == 'update':
@@ -37,7 +37,9 @@ def homepage():
             # no workers have been queued up?
             return '0'
         worker = workers[0]
-        if worker.state == 'started':
+        state = worker.state
+        print('worker state', state)
+        if state == 'started':
             return '1'
         else:
             return '0'
