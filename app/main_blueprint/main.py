@@ -30,8 +30,10 @@ def homepage():
         return '0'
 
     elif state == 'update':
-        # check if a loop is running?
+
         workers = rq.Worker.all(connection=current_app.redis)
+        print(workers)
+        
         worker = workers[0]
         if worker.state == 'started':
             return '1'
