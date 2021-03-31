@@ -22,6 +22,34 @@ side = board_pins[1]
 on = False
 off = True
 
+def fake_run(minutes):
+    if type(minutes) != int:
+        minutes = int(minutes)
+    
+    telegram_send.send(messages=[f'A fake trial of running sprinklers. Input time = {minutes} minutes.'])
+    on_time = minutes * 60
+     
+    telegram_send.send(messages=['fake Sideyard on'])
+    time.sleep(60)
+    telegram_send.send(messages=['fake Sideyard off'])
+
+    telegram_send.send(messages=['fake Porchside on'])
+    time.sleep(on_time)
+    telegram_send.send(messages=['fake Porchside off'])
+
+    telegram_send.send(messages=['fake Middle on'])
+    time.sleep(on_time)
+    telegram_send.send(messages=['fake Middle off'])
+
+    telegram_send.send(messages=['fake Farside on'])
+    time.sleep(on_time)
+    telegram_send.send(messages=['fake Farside off'])
+
+    telegram_send.send(messages=['fake Sideyard on'])
+    time.sleep(60)
+    telegram_send.send(messages=['fake Sideyard off'])
+
+    return printStatus()
 
 def run(minutes):
     if type(minutes) != int:
