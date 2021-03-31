@@ -35,14 +35,9 @@ def homepage():
         return '0'
 
     elif state == 'update':
-
-        workers = rq.Worker.all(connection=current_app.redis)
-        print(workers)
-        if not workers:
-            # no workers have been queued up?
-            return '0'
-        worker = workers[0]
+        worker = current_app.worker
         state = worker.state
+        print(worker)
         print('worker state', state)
         if state == 'started':
             return '1'
