@@ -9,6 +9,9 @@ import asyncio
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
 
+task_loop = asyncio.new_event_loop()
+task_loop.run_forever()
+
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
@@ -26,8 +29,8 @@ def homepage():
         if any_running is not None:
             return 1
         
-        water_grass = asyncio.create_task(async_running.run_sprinklers(5))
-        await water_grass
+        task_loop.create_task(async_running.run_sprinklers(5))
+        
         # start up the asynchronous function
         # return 1 to on 
         return 1
@@ -46,10 +49,3 @@ def homepage():
             return 1
         else:
             return 0
-
-
-async def task_loop():
-    # START THE LOOP?
-    pass
-
-asyncio.run(task_loop())
