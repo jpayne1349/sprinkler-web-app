@@ -24,13 +24,8 @@ def homepage():
         print('turning sprinklers on')
         # create the task and start it? and await it's finishing..
         # check for already running?
-        any_running = asyncio.current_task()
-        if any_running is not None:
-            return 1
-        
         task_loop.run_until_complete(async_running.run_sprinklers(5))
         #task_loop.create_task(async_running.run_sprinklers(5))
-        
         # start up the asynchronous function
         # return 1 to on 
         return 1
