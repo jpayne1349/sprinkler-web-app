@@ -39,9 +39,9 @@ def homepage():
 
     elif state == 'update':
         
-        workers = current_app.rq_inst.get_worker()
-        
-        print(workers)
+        worker = current_app.rq_inst.get_worker()
+        print(worker)
+        print(worker.state)
         if not workers:
             print('no worker found')
             return '0'
