@@ -10,6 +10,9 @@ main_blueprint = Blueprint('main_blueprint', __name__)
 @main_blueprint.route('/', methods=['GET','POST'])
 def homepage():
 
+    if request.method = 'GET':
+        return render_template('homepage.html')
+
     post_data = request.get_json()
 
     print('STATE = ', post_data['state'])
