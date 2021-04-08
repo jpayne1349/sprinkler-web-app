@@ -35,6 +35,10 @@ def create_app():
         #from . import models  # USED WHEN DB IS NEEDED
         app.redis = Redis()
         app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
+
+        # run stop command on start
+        startup_job = app.task_queue.enqueue('app.main_blueprint.runSprinklers.stop')
+        
         #app.worker = rq.Worker(app.task_queue, connection=app.redis, name='sprinkler_worker')
         print(app.task_queue)
         print(app.redis)
