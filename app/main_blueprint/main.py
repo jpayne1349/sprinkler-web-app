@@ -1,9 +1,6 @@
 
 from flask import Blueprint, render_template, flash, request, current_app
 
-from redis import Redis
-import rq
-
 from . import runSprinklers
 
 main_blueprint = Blueprint('main_blueprint', __name__) 
@@ -22,9 +19,8 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        redis_conn = Redis()
-        live_queue = rq.Queue(connection=current_app.redis)
-        sprinkler_job = live_queue.enqueue(runSprinklers.fake_run, 5, job_timeout=1200, job_id='sprinkler_job')
+        sprinkler_job = runSprinklers.fake_run.queue(1)
+        
         print('job id = ', sprinkler_job.get_id())
         print('job status = ', sprinkler_job.get_status())
         return '1'
@@ -43,7 +39,9 @@ def homepage():
 
     elif state == 'update':
         
-        workers = rq.worker.Worker.all(connection=current_app.redis)
+        workers = current_app.rq_inst.get_worker()
+        
+        print(workers)
         if not workers:
             print('no worker found')
             return '0'

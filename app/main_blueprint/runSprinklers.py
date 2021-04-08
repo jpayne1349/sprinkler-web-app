@@ -22,6 +22,7 @@ side = board_pins[1]
 on = False
 off = True
 
+@rq.job
 def fake_run(minutes):
     if type(minutes) != int:
         minutes = int(minutes)

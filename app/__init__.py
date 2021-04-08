@@ -4,10 +4,11 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from redis import Redis
-import rq
+from flask_rq2 import RQ
 
 db = SQLAlchemy()
 migrate = Migrate()
+rq = RQ()
 
 # login_manager = LoginManager() # USE FOR LOGIN PAGE IF NEEDED
 
@@ -20,6 +21,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    rq.init_app(app)
 
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
@@ -31,6 +33,8 @@ def create_app():
 
         app.register_blueprint(main.main_blueprint)  # registering the blueprint inside that file
 
+        app.rq_inst = rq
+        
         #from . import models  # USED WHEN DB IS NEEDED
         
         
