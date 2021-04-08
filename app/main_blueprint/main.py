@@ -21,7 +21,8 @@ def homepage():
 
     if state == 'on':
         print('turning sprinklers on')
-        sprinkler_job = current_app.task_queue.enqueue(runSprinklers.fake_run, 5, job_timeout=1200, job_id='sprinkler_job')
+        live_queue = rq.Queue(connection=current_app.redis)
+        sprinkler_job = live_queue.enqueue(runSprinklers.fake_run, 5, job_timeout=1200, job_id='sprinkler_job')
         print('job id = ', sprinkler_job.get_id())
         print('job status = ', sprinkler_job.get_status())
         return '1'
