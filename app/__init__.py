@@ -23,6 +23,8 @@ def create_app():
     migrate.init_app(app, db)
     rq.init_app(app)
 
+    app.rq_inst = rq
+
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
     #login_manager.login_view = 'authorization_bp.login_page' # USE FOR LOGIN PAGE IF NEEDED
@@ -33,7 +35,6 @@ def create_app():
 
         app.register_blueprint(main.main_blueprint)  # registering the blueprint inside that file
 
-        app.rq_inst = rq
         
         #from . import models  # USED WHEN DB IS NEEDED
         
