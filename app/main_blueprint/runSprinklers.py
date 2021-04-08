@@ -3,7 +3,9 @@ import time
 import telegram_send
 import os
 
-from . import rq
+from flask import current_app
+
+rq = current_app.rq_inst
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
