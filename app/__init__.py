@@ -21,12 +21,6 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    app.redis = Redis()
-    app.task_queue = rq.Queue(connection=app.redis)
-
-    # run stop command on start
-    startup_job = app.task_queue.enqueue('app.main_blueprint.runSprinklers.stop')
-    
     #login_manager.init_app(app) # USE FOR LOGIN PAGE IF NEEDED
 
     #login_manager.login_view = 'authorization_bp.login_page' # USE FOR LOGIN PAGE IF NEEDED
@@ -39,11 +33,7 @@ def create_app():
 
         #from . import models  # USED WHEN DB IS NEEDED
         
-        #app.worker = rq.Worker(app.task_queue, connection=app.redis, name='sprinkler_worker')
-        print(app.task_queue)
-        print(app.redis)
-        #print(app.worker)
-
+        
     
         return app
 
