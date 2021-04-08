@@ -33,7 +33,7 @@ def create_app():
         app.register_blueprint(main.main_blueprint)  # registering the blueprint inside that file
 
         #from . import models  # USED WHEN DB IS NEEDED
-         app.redis = Redis.from_url(app.config['REDIS_URL'])
+        app.redis = Redis.from_url(app.config['REDIS_URL'])
         app.task_queue = rq.Queue('sprinkler-tasks', connection=app.redis)
         #app.worker = rq.Worker(app.task_queue, connection=app.redis, name='sprinkler_worker')
         print(app.task_queue)
