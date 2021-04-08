@@ -3,6 +3,8 @@ import time
 import telegram_send
 import os
 
+from . import rq
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # set up for board number, not gpio number
 
