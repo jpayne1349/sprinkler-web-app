@@ -42,6 +42,7 @@ def homepage():
         worker = current_app.rq_inst.get_worker()
         print('Worker Object', worker)
         print('Worker State', worker.state)
+        print(worker.pid)
 
         if not worker:
             print('no worker found')
