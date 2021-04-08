@@ -40,13 +40,14 @@ def homepage():
     elif state == 'update':
         
         worker = current_app.rq_inst.get_worker()
-        print(worker)
-        print(worker.state)
-        if not workers:
+        print('Worker Object', worker)
+        print('Worker State', worker.state)
+
+        if not worker:
             print('no worker found')
             return '0'
         else:
-            state = workers[0].state
+            state = worker.state
             print('worker state = ', state)
 
         if state == 'busy':
