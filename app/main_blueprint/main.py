@@ -17,6 +17,8 @@ def homepage():
 
     state = post_data['state']
 
+    print('queue found - ', current_app.rq_inst.get_queue())
+
     if state == 'on':
         print('turning sprinklers on')
         sprinkler_job = runSprinklers.fake_run.queue(1)
