@@ -32,37 +32,63 @@ def run(minutes):
     on_time = minutes * 60
      
     # every time, only run side yard for 1 minute at beginning and 1 minute at end...
+    
+    # side on for 60
     GPIO.output(side, on)
     telegram_send.send(messages=['Sideyard on'])
-    time.sleep(60)
+    time.sleep(120)
+
+    # turn left on before stopping
+    GPIO.output(left, on)
+    telegram_send.send(messages=['Porchside on'])
+
+    # stop side after 1 second
+    time.sleep(1)
     GPIO.output(side, off)
     telegram_send.send(messages=['Sideyard off'])
 
-    GPIO.output(left, on)
-    telegram_send.send(messages=['Porchside on'])
+    # leave left on for alloted time
     time.sleep(on_time)
+
+    # turn the middle on
+    GPIO.output(middle, on)
+    telegram_send.send(messages=['Middle on'])
+    # wait 1 second and turn the left off
+    time.sleep(1)
     GPIO.output(left, off)
     telegram_send.send(messages=['Porchside off'])
 
-    GPIO.output(middle, on)
-    telegram_send.send(messages=['Middle on'])
+    # leave middle on for alloted time
     time.sleep(on_time)
+
+    # turn the right on
+    GPIO.output(right, on)
+    telegram_send.send(messages=['Farside on'])
+    # wait 1 second and turn the middle off
+    time.sleep(1)
     GPIO.output(middle, off)
     telegram_send.send(messages=['Middle off'])
 
-    GPIO.output(right, on)
-    telegram_send.send(messages=['Farside on'])
+    #leave right on for alloted time
     time.sleep(on_time)
+
+    #turn the side on
+    GPIO.output(side, on)
+    telegram_send.send(messages=['Sideyard on'])
+
+    # wait 1 second and turn the right off
+    time.sleep(1)
     GPIO.output(right, off)
     telegram_send.send(messages=['Farside off'])
 
-    GPIO.output(side, on)
-    telegram_send.send(messages=['Sideyard on'])
-    time.sleep(60)
+    # leave the side on
+    time.sleep(120)
+    # and turn it off
     GPIO.output(side, off)
     telegram_send.send(messages=['Sideyard off'])
 
     # for now just print their status...
+    # and send message with values..
     return printStatus()
 
 def stop():
