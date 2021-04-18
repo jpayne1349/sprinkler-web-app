@@ -36,7 +36,7 @@ def run(minutes):
     # side on for 60
     GPIO.output(side, on)
     telegram_send.send(messages=['Sideyard on'])
-    time.sleep(300)
+    time.sleep(400)
 
     # turn left on before stopping
     GPIO.output(left, on)
@@ -82,7 +82,7 @@ def run(minutes):
     telegram_send.send(messages=['Farside off'])
 
     # leave the side on
-    time.sleep(300)
+    time.sleep(400)
     # and turn it off
     GPIO.output(side, off)
     telegram_send.send(messages=['Sideyard off'])
@@ -128,7 +128,7 @@ def printStatus():
                 '  Right:', interpret(GPIO.input(right)), '  Side:', interpret(GPIO.input(side)))
 
 try:
-    run(10)
+    run(15)
     
 except Exception as error:
     traceback_list = traceback.format_exception(
